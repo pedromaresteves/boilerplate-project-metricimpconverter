@@ -36,9 +36,10 @@ suite('Unit Tests', function () {
         assert.equal(result, 1, 'Result is 1')
     });
     test('convertHandler should correctly read each valid input unit', function () {
-        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
+        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
         units.forEach((item, i) => {
-            assert.equal(convertHandler.getUnit(item), units[i], 'Result is 1')
+            const expectedResult = units[i] === 'l' ? 'L' : units[i];
+            assert.equal(convertHandler.getUnit(item), expectedResult, 'Valid input is read')
         });
     });
     test('convertHandler should return invalid unit if unit is invalid', function () {
@@ -49,7 +50,6 @@ suite('Unit Tests', function () {
         const returnUnits = ['km', 'mi', 'kg', 'lbs', 'L', 'gal'];
         units.forEach((item, i) => {
             const result = convertHandler.getReturnUnit(item);
-            console.log(item, convertHandler.getReturnUnit(item), "CONVERSION")
             assert.equal(result, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
         });
         returnUnits.forEach((item, i) => {
@@ -69,5 +69,17 @@ suite('Unit Tests', function () {
         assert.equal(result, '3.78541', `Gal turns to L`)
         const result2 = convertHandler.convert(1, 'L');
         assert.equal(result2, '0.26417', `Gal turns to L`)
+    });
+    test('You can convert "lbs" to "kg" and vice versa. (1 lbs to 0.453592 kg)', function () {
+        const result = convertHandler.convert(1, 'lbs');
+        assert.equal(result, '0.45359', `Lbs turns to kg`)
+        const result2 = convertHandler.convert(1, 'kg');
+        assert.equal(result2, '2.20462', `Kg turns to lbs`)
+    });
+    test('You can convert "mi" to "km" and vice versa. (1 mi to 1.60934 km)', function () {
+        const result = convertHandler.convert(1, 'mi');
+        assert.equal(result, '1.60934', `Mi turns to KM`)
+        const result2 = convertHandler.convert(1, 'km');
+        assert.equal(result2, '0.62137', `Km turns to Mi`)
     });
 });
