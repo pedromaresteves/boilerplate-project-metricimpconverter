@@ -36,14 +36,14 @@ suite('Unit Tests', function () {
         assert.equal(result, 1, 'Result is 1')
     });
     test('convertHandler should correctly read each valid input unit', function () {
-        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
+        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         units.forEach((item, i) => {
             assert.equal(convertHandler.getUnit(item), units[i], 'Result is 1')
         });
     });
     test('convertHandler should correctly converts all units', function () {
-        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
-        const returnUnits = ['km', 'mi', 'kg', 'lbs', 'l', 'gal'];
+        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
+        const returnUnits = ['km', 'mi', 'kg', 'lbs', 'L', 'gal'];
         units.forEach((item, i) => {
             const result = convertHandler.getReturnUnit(item);
             assert.equal(result, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
@@ -54,10 +54,16 @@ suite('Unit Tests', function () {
         });
     });
     test('convertHandler should correctly return the spelled-out string unit for each valid input unit', function () {
-        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
+        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         const spelledOutUnits = ['miles', 'kilometers', 'pounds', 'kilograms', 'gallons', 'liters']
         units.forEach((item, i) => {
             assert.equal(convertHandler.spellOutUnit(item), spelledOutUnits[i], `Result is ${spelledOutUnits[i]}`)
         });
+    });
+    test('You can convert "gal" to "L" and vice versa. (1 gal to 3.78541 L)', function () {
+        const result = convertHandler.getReturnUnit('gal');
+        assert.equal(result, 'L', `Gal turns to L`)
+        const result2 = convertHandler.getReturnUnit('L');
+        assert.equal(result2, 'gal', `Gal turns to L`)
     });
 });
