@@ -13,8 +13,8 @@ function ConvertHandler() {
 
   this.getUnit = function (input) {
     const result = input.replace(/[^a-zA-Z]/g, '');
-    const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'].includes(result)
-    if (!isValidInput) return { error: true, string: 'invalid number and unit' };
+    const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
+    if (!isValidInput) return { error: true, string: 'invalid unit' };
     return result;
   };
 
@@ -25,12 +25,13 @@ function ConvertHandler() {
   };
 
   this.spellOutUnit = function (unit) {
+    unit = unit.toLowerCase();
     if (unit === 'mi') return 'miles';
     if (unit === 'km') return 'kilometers';
     if (unit === 'lbs') return 'pounds';
     if (unit === 'kg') return 'kilograms';
     if (unit === 'gal') return 'gallons';
-    if (unit === 'L') return 'liters';
+    if (unit === 'l') return 'liters';
   };
 
   this.convert = function (initNum, initUnit) {
@@ -38,12 +39,13 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
     let result;
+    initUnit = initUnit.toLowerCase();
     if (initUnit === 'mi') result = initNum * miToKm;
     if (initUnit === 'km') result = initNum / miToKm;
     if (initUnit === 'lbs') result = initNum * lbsToKg;
     if (initUnit === 'kg') result = initNum / lbsToKg;
     if (initUnit === 'gal') result = initNum * galToL;
-    if (initUnit === 'L') result = initNum / galToL;
+    if (initUnit === 'l') result = initNum / galToL;
     return result;
   };
 
