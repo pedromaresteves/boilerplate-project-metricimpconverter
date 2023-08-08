@@ -42,7 +42,7 @@ suite('Unit Tests', function () {
         });
     });
     test('convertHandler should return invalid unit if unit is invalid', function () {
-        assert.equal(convertHandler.getUnit('hello').string, 'invalid unit', 'Result is 1')
+        assert.equal(convertHandler.getUnit('hello'), 'invalid unit', 'Result is 1')
     });
     test('convertHandler should correctly converts all units', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
