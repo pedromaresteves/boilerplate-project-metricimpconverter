@@ -1,7 +1,7 @@
 function ConvertHandler() {
   this.getNum = function (input) {
     const isValidInput = input.replace(/[^/]/g, '').length < 2;
-    if (!isValidInput) return { error: true };
+    if (!isValidInput) return 'invalid number';
     let result = input.replace(/[^\d./]/g, '');
     if (result.indexOf('/') > -1) {
       const numerator = result.substring(0, result.indexOf('/'));
@@ -25,6 +25,7 @@ function ConvertHandler() {
   };
 
   this.spellOutUnit = function (unit) {
+    if (!unit) return 'invalid unit'
     unit = unit.toLowerCase();
     if (unit === 'mi') return 'miles';
     if (unit === 'km') return 'kilometers';

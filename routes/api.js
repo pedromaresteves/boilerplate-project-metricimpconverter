@@ -13,8 +13,6 @@ module.exports = function (app) {
     const returnNum = convertHandler.convert(initNum, initUnit);
     const returnUnit = convertHandler.getReturnUnit(initUnit);
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-    if (initNum.error || initUnit.error || returnNum.error || returnUnit.error || string.error) { res.send('invalid number and unit') }
     res.send({ initNum, initUnit, returnNum, returnUnit, string })
   })
-
 };
