@@ -16,7 +16,7 @@ function ConvertHandler() {
     const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
     if (!isValidInput) return 'invalid unit';
     if (result === 'l') return result.toUpperCase();
-    return result.toLowerCase();;
+    return result.toLowerCase();
   };
 
   this.getReturnUnit = function (initUnit) {
@@ -25,7 +25,7 @@ function ConvertHandler() {
     if (units.indexOf(initUnit.toLowerCase()) % 2 === 0) result = units[units.indexOf(initUnit.toLowerCase()) + 1];
     if (units.indexOf(initUnit.toLowerCase()) % 2 !== 0) result = units[units.indexOf(initUnit.toLowerCase()) - 1];
     if (result === 'l') return result.toUpperCase();
-    return result.toLowerCase();;
+    return result.toLowerCase();
   };
 
   this.spellOutUnit = function (unit) {
