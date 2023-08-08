@@ -28,7 +28,7 @@ suite('Unit Tests', function () {
     test('convertHandler should correctly return an error on a double-fraction (i.e. 3/2/3).', function () {
         const fractionalNumberInput = '3/2/3';
         const result = convertHandler.getNum(fractionalNumberInput);
-        assert.equal(result.error, true, 'Result is an error')
+        assert.equal(result, 'invalid number', 'Result is an error')
     });
     test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided', function () {
         const fractionalNumberInput = 'mi';
@@ -49,6 +49,7 @@ suite('Unit Tests', function () {
         const returnUnits = ['km', 'mi', 'kg', 'lbs', 'L', 'gal'];
         units.forEach((item, i) => {
             const result = convertHandler.getReturnUnit(item);
+            console.log(item, convertHandler.getReturnUnit(item), "CONVERSION")
             assert.equal(result, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
         });
         returnUnits.forEach((item, i) => {
@@ -64,9 +65,9 @@ suite('Unit Tests', function () {
         });
     });
     test('You can convert "gal" to "L" and vice versa. (1 gal to 3.78541 L)', function () {
-        const result = convertHandler.getReturnUnit('gal');
-        assert.equal(result, 'L', `Gal turns to L`)
-        const result2 = convertHandler.getReturnUnit('L');
-        assert.equal(result2, 'gal', `Gal turns to L`)
+        const result = convertHandler.convert(1, 'gal');
+        assert.equal(result, '3.78541', `Gal turns to L`)
+        const result2 = convertHandler.convert(1, 'L');
+        assert.equal(result2, '0.26417', `Gal turns to L`)
     });
 });
