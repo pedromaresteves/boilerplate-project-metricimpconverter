@@ -36,14 +36,14 @@ suite('Unit Tests', function () {
         assert.equal(result, 1, 'Result is 1')
     });
     test('convertHandler should correctly read each valid input unit', function () {
-        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
+        const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         units.forEach((item, i) => {
-            const expectedResult = units[i] === 'l' ? 'L' : units[i];
-            assert.equal(convertHandler.getUnit(item), expectedResult, 'Valid input is read')
+            assert.equal(convertHandler.getUnit(item.toLowerCase()), units[i], 'Valid input is read')
+            assert.equal(convertHandler.getUnit(item.toUpperCase()), units[i], 'Valid input is read')
         });
     });
     test('convertHandler should return invalid unit if unit is invalid', function () {
-        assert.equal(convertHandler.getUnit('hello'), 'invalid unit', 'Result is 1')
+        assert.equal(convertHandler.getUnit('hello'), 'invalid unit', 'Result is invalid')
     });
     test('convertHandler should correctly converts all units', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
@@ -51,10 +51,10 @@ suite('Unit Tests', function () {
         units.forEach((item, i) => {
             const result = convertHandler.getReturnUnit(item);
             assert.equal(result, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
-        });
-        returnUnits.forEach((item, i) => {
-            const result = convertHandler.getReturnUnit(item);
-            assert.equal(result, units[i], `${item} converts to ${units[i]}`)
+            const resultFromUpper = convertHandler.getReturnUnit(item.toUpperCase());
+            assert.equal(resultFromUpper, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
+            const resultFromLower = convertHandler.getReturnUnit(item.toLowerCase());
+            assert.equal(resultFromLower, returnUnits[i], `${item} converts to ${returnUnits[i]}`)
         });
     });
     test('convertHandler should correctly return the spelled-out string unit for each valid input unit', function () {
