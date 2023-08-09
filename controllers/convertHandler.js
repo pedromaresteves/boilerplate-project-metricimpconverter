@@ -15,6 +15,7 @@ function ConvertHandler() {
     let result = input.replace(/[^a-zA-Z]/g, '');
     if (!result) return 'invalid unit';
     const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
+    console.log(isValidInput, "HELLO")
     if (!isValidInput) return 'invalid unit';
     if (result === 'l' || result === 'L') return result.toUpperCase();
     return result.toLowerCase();

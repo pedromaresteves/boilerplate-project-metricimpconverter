@@ -10,6 +10,7 @@ module.exports = function (app) {
   app.get("/api/convert", (req, res) => {
     const initNum = convertHandler.getNum(req.query.input);
     const initUnit = convertHandler.getUnit(req.query.input);
+    if (initNum === 'invalid number') return res.send(initNum)
     const returnNum = convertHandler.convert(initNum, initUnit);
     const returnUnit = convertHandler.getReturnUnit(initUnit);
     const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
