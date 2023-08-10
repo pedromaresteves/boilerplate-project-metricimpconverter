@@ -1,22 +1,24 @@
 function ConvertHandler() {
+  const invalidMsg = 'invalid number';
   this.getNum = function (input) {
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
-      return Number(numsBarsAndDots) ? Number(numsBarsAndDots) : false
+      return Number(numsBarsAndDots) ? Number(numsBarsAndDots) : invalidMsg
     } else {
       numsBarsAndDots = numsBarsAndDots.split("/");
-      if (numsBarsAndDots.length > 2) return false
+      if (numsBarsAndDots.length > 2) return invalidMsg
       if (numsBarsAndDots[0].includes('.') && numsBarsAndDots[0].match(/\./g).length > 1 || numsBarsAndDots[1].includes('.') && numsBarsAndDots[1].match(/\./g).length > 1) return "invalid number"
       if (numsBarsAndDots[1]) return Number(numsBarsAndDots[0]) / Number(numsBarsAndDots[1]);
     }
   };
 
   this.getUnit = function (input) {
+    const invalidMsg = 'invalid unit';
     let result = input.replace(/[^a-zA-Z]/g, '');
-    if (!result) return false;
+    if (!result) return invalidMsg;
     const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
-    if (!isValidInput) return false;
+    if (!isValidInput) return invalidMsg;
     if (result === 'l' || result === 'L') return result.toUpperCase();
     return result.toLowerCase();
   };

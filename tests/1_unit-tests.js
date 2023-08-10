@@ -35,6 +35,11 @@ suite('Unit Tests', function () {
         const result = convertHandler.getNum(fractionalNumberInput);
         assert.equal(result, 1, 'Result is 1')
     });
+    test('convertHandler should return false if there are two dots', function () {
+        const input = '25..mi';
+        const result = convertHandler.getNum(input);
+        assert.equal(result, 'invalid number', 'Result is 1')
+    });
     test('convertHandler should correctly read each valid input unit', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         units.forEach((item, i) => {
