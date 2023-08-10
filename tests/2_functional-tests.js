@@ -1,28 +1,36 @@
 const chaiHttp = require('chai-http');
 const chai = require('chai');
 const assert = chai.assert;
-const ConvertHandler = require('../controllers/convertHandler.js');
-const convertHandler = new ConvertHandler();
+const server = require('../server');
 
 chai.use(chaiHttp);
 
 suite('Functional Tests', function () {
-    test('Convert invalid number returns invalid number', function () {
-        const inputNumber = convertHandler.getNum('25..');
-        const inputUnit = convertHandler.getUnit('mi');
-        const result = convertHandler.convert(inputNumber, inputUnit);
-        assert.equal(result, 'invalid number', `If number is invalid and unit valid. It returns invalid number`)
-    });
-    test('Convert invalid unit returns invalid unit', function () {
-        const inputNumber = convertHandler.getNum('25');
-        const inputUnit = convertHandler.getUnit('mis');
-        const result = convertHandler.convert(inputNumber, inputUnit);
-        assert.equal(result, 'invalid unit', `If unit is invalid and number valid. It returns invalid unit`)
-    });
-    test('Convert invalid number and unit returns invalid number and unit', function () {
-        const inputNumber = convertHandler.getNum('25...');
-        const inputUnit = convertHandler.getUnit('mis');
-        const result = convertHandler.convert(inputNumber, inputUnit);
-        assert.equal(result, 'invalid number and unit', `If unit and number are invalid. It returns invalid number and unit`)
-    });
+    test('10L converts properly', function () {
+        chai.request(server).get('/api/convert?input=10L').then(res => {
+            assert.deepEqual(JSON.parse(res.text),
+                { "initNum": 10, "initUnit": "L", "returnNum": 2.64172, "returnUnit": "gal", "string": "10 liters converts to 2.64172 gallons" });
+        })
+    }),
+        test('Convert invalid input: 32g', function () {
+            chai.request(server).get('/api/convert?input=32g').then(res => {
+                assert.deepEqual(res.text, "invalid unit");
+            })
+        }),
+        test('3/7.2/4kg', function () {
+            chai.request(server).get('/api/convert?input=3/7.2/4kg').then(res => {
+                assert.deepEqual(res.text, "invalid number");
+            })
+        }),
+        test('Convert invalid input: 3/7.2/4kilomegagram', function () {
+            chai.request(server).get('/api/convert?input=3/7.2/4kilomegagram').then(res => {
+                assert.deepEqual(res.text, "invalid number and unit");
+            });
+        }),
+        test('Convert valid input: kg', function () {
+            chai.request(server).get('/api/convert?input=kg').then(res => {
+                assert.deepEqual(JSON.parse(res.text),
+                    { "initNum": 1, "initUnit": "kg", "returnNum": 2.20462, "returnUnit": "lbs", "string": "1 kilograms converts to 2.20462 pounds" });
+            })
+        })
 });

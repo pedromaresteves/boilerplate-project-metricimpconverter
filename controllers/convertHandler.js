@@ -1,5 +1,6 @@
+const validUnits = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
+
 function ConvertHandler() {
-  const invalidMsg = 'invalid number';
   this.getNum = function (input) {
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
@@ -14,20 +15,18 @@ function ConvertHandler() {
   };
 
   this.getUnit = function (input) {
-    const invalidMsg = 'invalid unit';
     let result = input.replace(/[^a-zA-Z]/g, '');
     if (!result) return false;
-    const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
+    const isValidInput = validUnits.includes(result.toLowerCase());
     if (!isValidInput) return false;
     if (result === 'l' || result === 'L') return result.toUpperCase();
     return result.toLowerCase();
   };
 
   this.getReturnUnit = function (initUnit) {
-    const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
     let result;
-    if (units.indexOf(initUnit.toLowerCase()) % 2 === 0) result = units[units.indexOf(initUnit.toLowerCase()) + 1];
-    if (units.indexOf(initUnit.toLowerCase()) % 2 !== 0) result = units[units.indexOf(initUnit.toLowerCase()) - 1];
+    if (validUnits.indexOf(initUnit.toLowerCase()) % 2 === 0) result = validUnits[validUnits.indexOf(initUnit.toLowerCase()) + 1];
+    if (validUnits.indexOf(initUnit.toLowerCase()) % 2 !== 0) result = validUnits[validUnits.indexOf(initUnit.toLowerCase()) - 1];
     if (!result) return 'invalid unit';
     if (result === 'l') return result.toUpperCase();
     return result.toLowerCase();
@@ -48,9 +47,6 @@ function ConvertHandler() {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    if (!initNum && !initUnit) return 'invalid number and unit';
-    if (!initNum) return 'invalid number';
-    if (!initUnit) return 'invalid unit';
     let result;
     initUnit = initUnit.toLowerCase();
     if (initUnit === 'mi') result = initNum * miToKm;
@@ -60,9 +56,7 @@ function ConvertHandler() {
     if (initUnit === 'gal') result = initNum * galToL;
     if (initUnit === 'l') result = initNum / galToL;
     if (result.toString().length > 7) result = result.toFixed(5)
-    const returnUnit = this.getReturnUnit(initUnit);
-    const string = this.getString(initNum, initUnit, result, returnUnit);
-    return { initNum, initUnit, result, returnUnit, string }
+    return Number(result);
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
@@ -73,4 +67,4 @@ function ConvertHandler() {
 
 const poo = new ConvertHandler();
 
-module.exports = ConvertHandler;
+module.exports = { ConvertHandler, validUnits };
