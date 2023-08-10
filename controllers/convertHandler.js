@@ -4,10 +4,10 @@ function ConvertHandler() {
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
-      return Number(numsBarsAndDots) ? Number(numsBarsAndDots) : invalidMsg
+      return Number(numsBarsAndDots) ? Number(numsBarsAndDots) : false
     } else {
       numsBarsAndDots = numsBarsAndDots.split("/");
-      if (numsBarsAndDots.length > 2) return invalidMsg
+      if (numsBarsAndDots.length > 2) return false
       if (numsBarsAndDots[0].includes('.') && numsBarsAndDots[0].match(/\./g).length > 1 || numsBarsAndDots[1].includes('.') && numsBarsAndDots[1].match(/\./g).length > 1) return "invalid number"
       if (numsBarsAndDots[1]) return Number(numsBarsAndDots[0]) / Number(numsBarsAndDots[1]);
     }
@@ -16,9 +16,9 @@ function ConvertHandler() {
   this.getUnit = function (input) {
     const invalidMsg = 'invalid unit';
     let result = input.replace(/[^a-zA-Z]/g, '');
-    if (!result) return invalidMsg;
+    if (!result) return false;
     const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
-    if (!isValidInput) return invalidMsg;
+    if (!isValidInput) return false;
     if (result === 'l' || result === 'L') return result.toUpperCase();
     return result.toLowerCase();
   };
@@ -48,7 +48,10 @@ function ConvertHandler() {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    if (typeof initNum === String || initUnit === 'invalid unit') return 'invalid input'
+    console.log(initNum, initUnit)
+    if (!initNum && !initUnit) return 'invalid number and unit';
+    if (!initNum) return 'invalid number';
+    if (!initUnit) return 'invalid unit';
     let result;
     initUnit = initUnit.toLowerCase();
     if (initUnit === 'mi') result = initNum * miToKm;

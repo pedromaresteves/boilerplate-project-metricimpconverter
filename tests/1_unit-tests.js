@@ -1,8 +1,7 @@
 const chai = require('chai');
-let assert = chai.assert;
+const assert = chai.assert;
 const ConvertHandler = require('../controllers/convertHandler.js');
-
-let convertHandler = new ConvertHandler();
+const convertHandler = new ConvertHandler();
 
 suite('Unit Tests', function () {
     test('convertHandler should correctly read a whole number input', function () {
@@ -28,7 +27,7 @@ suite('Unit Tests', function () {
     test('convertHandler should correctly return an error on a double-fraction (i.e. 3/2/3).', function () {
         const fractionalNumberInput = '3/2/3';
         const result = convertHandler.getNum(fractionalNumberInput);
-        assert.equal(result, 'invalid number', 'Result is an error')
+        assert.equal(result, false, 'Result is an error')
     });
     test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided', function () {
         const fractionalNumberInput = 'mi';
@@ -38,7 +37,7 @@ suite('Unit Tests', function () {
     test('convertHandler should return false if there are two dots', function () {
         const input = '25..mi';
         const result = convertHandler.getNum(input);
-        assert.equal(result, 'invalid number', 'Result is 1')
+        assert.equal(result, false, 'Result is 1')
     });
     test('convertHandler should correctly read each valid input unit', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
@@ -48,7 +47,7 @@ suite('Unit Tests', function () {
         });
     });
     test('convertHandler should return invalid unit if unit is invalid', function () {
-        assert.equal(convertHandler.getUnit('hello'), 'invalid unit', 'Result is invalid')
+        assert.equal(convertHandler.getUnit('hello'), false, 'Result is invalid')
     });
     test('convertHandler should correctly converts all units', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
