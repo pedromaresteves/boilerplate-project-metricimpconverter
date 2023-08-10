@@ -2,6 +2,12 @@ const validUnits = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
 
 function ConvertHandler() {
   this.getNum = function (input) {
+    let indexOfFirstText;
+    if (/[a-z]/i.test(input)) {
+      indexOfFirstText = /[a-z]/i.exec(input).index;
+      let numSection = input.slice(0, indexOfFirstText)
+      if (/[^\d.\//a-z]/gi.exec(numSection) !== null) return false
+    }
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
@@ -17,6 +23,11 @@ function ConvertHandler() {
   this.getUnit = function (input) {
     let result = input.replace(/[^a-zA-Z]/g, '');
     if (!result) return false;
+    if (/[a-z]/i.test(input)) {
+      indexOfFirstText = /[a-z]/i.exec(input).index;
+      let textSection = input.slice(indexOfFirstText)
+      if (/[^\d.\//a-z]/gi.exec(textSection) !== null) return false
+    }
     const isValidInput = validUnits.includes(result.toLowerCase());
     if (!isValidInput) return false;
     if (result === 'l' || result === 'L') return result.toUpperCase();
