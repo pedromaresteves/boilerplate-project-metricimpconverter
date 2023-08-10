@@ -32,5 +32,15 @@ suite('Functional Tests', function () {
                 assert.deepEqual(JSON.parse(res.text),
                     { "initNum": 1, "initUnit": "kg", "returnNum": 2.20462, "returnUnit": "lbs", "string": "1 kilograms converts to 2.20462 pounds" });
             })
+        }),
+        test('Edge case: 3.5/2.1.1km', function () {
+            chai.request(server).get('/api/convert?input=3.5/2.1.1km').then(res => {
+                assert.deepEqual(res.text, "invalid number");
+            })
+        }),
+        test('Edge case: 3.5/2.1.1', function () {
+            chai.request(server).get('/api/convert?input=3.5/2.1.1').then(res => {
+                assert.deepEqual(res.text, "invalid number and unit");
+            })
         })
 });
