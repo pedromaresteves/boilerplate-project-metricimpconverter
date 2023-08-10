@@ -40,6 +40,21 @@ suite('getNum Tests', function () {
         const result = convertHandler.getNum(input);
         assert.equal(result, 1, 'Result is 1')
     });
+    test('!10kg! should break', function () {
+        const input = '!10kg!';
+        const result = convertHandler.getNum(input);
+        assert.equal(result, false, 'Result is false')
+    });
+    test('!10kg should break', function () {
+        const input = '!10kg!';
+        const result = convertHandler.getNum(input);
+        assert.equal(result, false, 'Result is false')
+    });
+    test('k!g should break', function () {
+        const input = '!10kg!';
+        const result = convertHandler.getNum(input);
+        assert.equal(result, false, 'Result is false')
+    });
 });
 suite('getUnit Tests', function () {
     test('convertHandler should correctly read each valid input unit', function () {
@@ -54,7 +69,17 @@ suite('getUnit Tests', function () {
     test('if unit is l it return L', function () {
         assert.equal(convertHandler.getUnit('l'), 'L', 'l is L');
         assert.equal(convertHandler.getUnit('L'), 'L', 'l is L');
-    })
+    }),
+        test('!10kg! should break', function () {
+            const input = '!10kg!';
+            const result = convertHandler.getNum(input);
+            assert.equal(result, false, 'Result is false')
+        });
+    test('k!g should break', function () {
+        const input = '!10kg!';
+        const result = convertHandler.getNum(input);
+        assert.equal(result, false, 'Result is false')
+    });
 });
 suite('getReturnUnit Tests', function () {
     test('convertHandler should correctly converts all units', function () {

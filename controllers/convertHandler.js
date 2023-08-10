@@ -2,7 +2,17 @@ const validUnits = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
 
 function ConvertHandler() {
   this.getNum = function (input) {
-    if (/[^\d.\//a-z]/gi.exec(input) !== null) return false
+    if (/[^A-Za-z0-9.\//]/gi.exec(input) !== null) return false;
+    const lowerCaseInput = input.toLowerCase();
+    let unit = false;
+    let textAfterUnit;
+    validUnits.forEach(item => {
+      if (lowerCaseInput.includes(item)) unit = item;
+    });
+    if (unit) {
+      textAfterUnit = lowerCaseInput.slice(lowerCaseInput.indexOf(unit));
+      if (/[\d.]/gi.exec(textAfterUnit) !== null) return false
+    }
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
@@ -16,17 +26,28 @@ function ConvertHandler() {
   };
 
   this.getUnit = function (input) {
-    let result = input.replace(/[^a-zA-Z]/g, '');
-    if (!result) return false;
-    if (/[a-z]/i.test(input)) {
-      indexOfFirstText = /[a-z]/i.exec(input).index;
-      let textSection = input.slice(indexOfFirstText)
-      if (/[^\d.\//a-z]/gi.exec(textSection) !== null) return false
+    // let result = input.replace(/[^a-zA-Z]/g, '');
+    // if (!result) return false;
+    // const indexOfUnit = validUnits.indexOf(result.toLowerCase());
+    // if (indexOfUnit === -1) return false;
+    // console.log(input.slice(indexOfUnit - 1))
+    // if (input.slice(indexOfUnit - 1).length > result.length) return false;
+    // if (result === 'l' || result === 'L') return result.toUpperCase();
+    // return result.toLowerCase();
+    const lowerCaseInput = input.toLowerCase();
+    let unit = false;
+    let textAfterUnit;
+    validUnits.forEach(item => {
+      if (!unit && lowerCaseInput.includes(item)) unit = item;
+    });
+    if (unit) {
+      textAfterUnit = lowerCaseInput.slice(lowerCaseInput.indexOf(unit));
+      if (textAfterUnit.length > unit.length) return false
+    } else {
+      return false;
     }
-    const isValidInput = validUnits.includes(result.toLowerCase());
-    if (!isValidInput) return false;
-    if (result === 'l' || result === 'L') return result.toUpperCase();
-    return result.toLowerCase();
+    if (unit === 'l' || unit === 'L') return unit.toUpperCase();
+    return unit;
   };
 
   this.getReturnUnit = function (initUnit) {
@@ -71,6 +92,6 @@ function ConvertHandler() {
 
 }
 
-const poo = new ConvertHandler();
+
 
 module.exports = { ConvertHandler, validUnits };
