@@ -1,14 +1,15 @@
 function ConvertHandler() {
   this.getNum = function (input) {
-    const isValidInput = input.replace(/[^/]/g, '').length < 2;
-    if (!isValidInput) return 'invalid number';
-    let result = input.replace(/[^\d./]/g, '');
-    if (result.indexOf('/') > -1) {
-      const numerator = result.substring(0, result.indexOf('/'));
-      const denominator = result.substring(result.indexOf('/') + 1, result.length);
-      result = Number(numerator) / Number(denominator);
+    let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
+    if (numsBarsAndDots.indexOf("/") === -1) {
+      if (numsBarsAndDots === "") return 1;
+      return Number(numsBarsAndDots)
+    } else {
+      numsBarsAndDots = numsBarsAndDots.split("/");
+      if (numsBarsAndDots.length > 2) return "invalid number"
+      if (numsBarsAndDots[0].includes('.') && numsBarsAndDots[0].match(/\./g).length > 1 || numsBarsAndDots[1].includes('.') && numsBarsAndDots[1].match(/\./g).length > 1) return "invalid number"
+      if (numsBarsAndDots[1]) return Number(numsBarsAndDots[0]) / Number(numsBarsAndDots[1]);
     }
-    return Number(result) || 1;
   };
 
   this.getUnit = function (input) {
@@ -64,5 +65,8 @@ function ConvertHandler() {
   };
 
 }
+
+const poo = new ConvertHandler();
+console.log(poo.getNum('25.5/5.5.5smidsa'))
 
 module.exports = ConvertHandler;
