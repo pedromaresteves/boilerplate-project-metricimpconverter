@@ -21,6 +21,7 @@ function ConvertHandler() {
       numsBarsAndDots = numsBarsAndDots.split("/");
       if (numsBarsAndDots.length > 2) return false
       if (numsBarsAndDots[0].includes('.') && numsBarsAndDots[0].match(/\./g).length > 1 || numsBarsAndDots[1].includes('.') && numsBarsAndDots[1].match(/\./g).length > 1) return false
+      if (numsBarsAndDots[1].includes('/')) return false;
       if (numsBarsAndDots[1]) return Number(numsBarsAndDots[0]) / Number(numsBarsAndDots[1]);
     }
   };
