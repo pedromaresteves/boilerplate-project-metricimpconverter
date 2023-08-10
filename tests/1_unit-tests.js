@@ -70,20 +70,20 @@ suite('Unit Tests', function () {
     });
     test('You can convert "gal" to "L" and vice versa. (1 gal to 3.78541 L)', function () {
         const result = convertHandler.convert(1, 'gal');
-        assert.equal(result, '3.78541', `Gal turns to L`)
+        assert.equal(result.result, '3.78541', `Gal turns to L`)
         const result2 = convertHandler.convert(1, 'L');
-        assert.equal(result2, '0.26417', `Gal turns to L`)
+        assert.equal(result2.result, '0.26417', `Gal turns to L`)
     });
     test('You can convert "lbs" to "kg" and vice versa. (1 lbs to 0.453592 kg)', function () {
         const result = convertHandler.convert(1, 'lbs');
-        assert.equal(result, '0.45359', `Lbs turns to kg`)
+        assert.equal(result.result, '0.45359', `Lbs turns to kg`)
         const result2 = convertHandler.convert(1, 'kg');
-        assert.equal(result2, '2.20462', `Kg turns to lbs`)
+        assert.equal(result2.result, '2.20462', `Kg turns to lbs`)
     });
     test('You can convert "mi" to "km" and vice versa. (1 mi to 1.60934 km)', function () {
         const result = convertHandler.convert(1, 'mi');
-        assert.equal(result, '1.60934', `Mi turns to KM`)
+        assert.equal(result.result, '1.60934', `Mi turns to KM`)
         const result2 = convertHandler.convert(1, 'km');
-        assert.equal(result2, '0.62137', `Km turns to Mi`)
+        assert.equal(result2.result, '0.62137', `Km turns to Mi`)
     });
 });
