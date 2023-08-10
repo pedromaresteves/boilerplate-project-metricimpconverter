@@ -2,6 +2,7 @@ const validUnits = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
 
 function ConvertHandler() {
   this.getNum = function (input) {
+    //console.log(decodeURIComponent(input))
     if (/[^A-Za-z0-9.\//]/gi.exec(input) !== null) return false;
     const lowerCaseInput = input.toLowerCase();
     let unit = false;
