@@ -3,7 +3,7 @@ function ConvertHandler() {
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
-      return Number(numsBarsAndDots)
+      return Number(numsBarsAndDots) ? Number(numsBarsAndDots) : 'invalid number'
     } else {
       numsBarsAndDots = numsBarsAndDots.split("/");
       if (numsBarsAndDots.length > 2) return "invalid number"
@@ -16,7 +16,6 @@ function ConvertHandler() {
     let result = input.replace(/[^a-zA-Z]/g, '');
     if (!result) return 'invalid unit';
     const isValidInput = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'].includes(result.toLowerCase())
-    console.log(isValidInput, "HELLO")
     if (!isValidInput) return 'invalid unit';
     if (result === 'l' || result === 'L') return result.toUpperCase();
     return result.toLowerCase();
@@ -67,6 +66,5 @@ function ConvertHandler() {
 }
 
 const poo = new ConvertHandler();
-console.log(poo.getNum('25.5/5.5.5smidsa'))
 
 module.exports = ConvertHandler;
