@@ -2,12 +2,7 @@ const validUnits = ['mi', 'km', 'lbs', 'kg', 'gal', 'l'];
 
 function ConvertHandler() {
   this.getNum = function (input) {
-    let indexOfFirstText;
-    if (/[a-z]/i.test(input)) {
-      indexOfFirstText = /[a-z]/i.exec(input).index;
-      let numSection = input.slice(0, indexOfFirstText)
-      if (/[^\d.\//a-z]/gi.exec(numSection) !== null) return false
-    }
+    if (/[^\d.\//a-z]/gi.exec(input) !== null) return false
     let numsBarsAndDots = input.replace(/[^\d.\//]/g, '');
     if (numsBarsAndDots.indexOf("/") === -1) {
       if (numsBarsAndDots === "") return 1;
