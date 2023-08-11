@@ -27,14 +27,6 @@ function ConvertHandler() {
   };
 
   this.getUnit = function (input) {
-    // let result = input.replace(/[^a-zA-Z]/g, '');
-    // if (!result) return false;
-    // const indexOfUnit = validUnits.indexOf(result.toLowerCase());
-    // if (indexOfUnit === -1) return false;
-    // console.log(input.slice(indexOfUnit - 1))
-    // if (input.slice(indexOfUnit - 1).length > result.length) return false;
-    // if (result === 'l' || result === 'L') return result.toUpperCase();
-    // return result.toLowerCase();
     const lowerCaseInput = input.toLowerCase();
     let unit = false;
     let textAfterUnit;
