@@ -1,7 +1,4 @@
 {
-	"engines": {
-		"node": "16.x"
-	},
 	"name": "fcc-imperial-metric-converter-boilerplate",
 	"version": "1.0.0",
 	"description": "Metric / Imperial Unit Converter",
