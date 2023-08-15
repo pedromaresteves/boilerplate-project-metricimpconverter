@@ -5,22 +5,22 @@ const { ConvertHandler, validUnits } = require('../controllers/convertHandler.js
 const convertHandler = new ConvertHandler();
 
 suite('getNum Tests', function () {
-    test('convertHandler should correctly read a whole number input', function () {
+    test('convertHandler should correctly read a whole number input.', function () {
         const wholeNumberInput = '5mi';
         const result = convertHandler.getNum(wholeNumberInput);
         assert.equal(result, 5, 'Result is equal to 5')
     });
-    test('convertHandler should correctly read a decimal number input', function () {
+    test('convertHandler should correctly read a decimal number input.', function () {
         const decimalNumberInput = '5.5mi';
         const result = convertHandler.getNum(decimalNumberInput);
         assert.equal(result, 5.5, 'Result is equal to 5.5')
     });
-    test('convertHandler should correctly read a fractional input', function () {
+    test('convertHandler should correctly read a fractional input.', function () {
         const fractionalNumberInput = '3/5mi';
         const result = convertHandler.getNum(fractionalNumberInput);
         assert.equal(result, 0.6, 'Result is equal to 0.6')
     });
-    test('convertHandler should correctly read a fractional input with a decimal', function () {
+    test('convertHandler should correctly read a fractional input with a decimal.', function () {
         const fractionalNumberInput = '3.5/5mi';
         const result = convertHandler.getNum(fractionalNumberInput);
         assert.equal(result, 0.7, 'Result is equal to 0.7')
@@ -30,12 +30,12 @@ suite('getNum Tests', function () {
         const result = convertHandler.getNum(fractionalNumberInput);
         assert.equal(result, false, 'Result is an error')
     });
-    test('convertHandler should correctly return an error with a many dots input.', function () {
+    test('convertHandler should correctly return an error with a many dots input.', function () { //?
         const input = '3.5.5';
         const result = convertHandler.getNum(input);
         assert.equal(result, false, 'Result is an error')
     });
-    test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided', function () {
+    test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided.', function () {
         const input = 'mi';
         const result = convertHandler.getNum(input);
         assert.equal(result, 1, 'Result is 1')
@@ -57,13 +57,13 @@ suite('getNum Tests', function () {
     });
 });
 suite('getUnit Tests', function () {
-    test('convertHandler should correctly read each valid input unit', function () {
+    test('convertHandler should correctly read each valid input unit.', function () {
         validUnits.forEach((item, i) => {
             assert.equal(convertHandler.getUnit(item.toLowerCase()), validUnits[i] === 'l' ? validUnits[i].toUpperCase() : validUnits[i], 'Valid input is read')
             assert.equal(convertHandler.getUnit(item.toUpperCase()), validUnits[i] === 'l' ? validUnits[i].toUpperCase() : validUnits[i], 'Valid input is read')
         });
     });
-    test('convertHandler should return invalid unit if unit is invalid', function () {
+    test('convertHandler should correctly return an error for an invalid input unit.', function () {
         assert.equal(convertHandler.getUnit('hello'), false, 'Result is invalid')
     });
     test('if unit is l it return L', function () {
@@ -82,7 +82,7 @@ suite('getUnit Tests', function () {
     });
 });
 suite('getReturnUnit Tests', function () {
-    test('convertHandler should correctly converts all units', function () {
+    test('convertHandler should return the correct return unit for each valid input unit.', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         const returnUnits = ['km', 'mi', 'kg', 'lbs', 'L', 'gal'];
         units.forEach((item, i) => {
@@ -96,7 +96,7 @@ suite('getReturnUnit Tests', function () {
     });
 });
 suite('spellOutUnit Tests', function () {
-    test('convertHandler should correctly return the spelled-out string unit for each valid input unit', function () {
+    test('convertHandler should correctly return the spelled-out string unit for each valid input unit.', function () {
         const units = ['mi', 'km', 'lbs', 'kg', 'gal', 'L'];
         const spelledOutUnits = ['miles', 'kilometers', 'pounds', 'kilograms', 'gallons', 'liters']
         units.forEach((item, i) => {
@@ -105,21 +105,27 @@ suite('spellOutUnit Tests', function () {
     });
 });
 suite('convert Tests', function () {
-    test('You can convert "gal" to "L" and vice versa. (1 gal to 3.78541 L)', function () {
+    test('convertHandler should correctly convert gal to L.', function () {
         const result = convertHandler.convert(1, 'gal');
         assert.equal(result, '3.78541', `Gal turns to L`)
-        const result2 = convertHandler.convert(1, 'L');
-        assert.equal(result2, '0.26417', `Gal turns to L`)
     });
-    test('You can convert "lbs" to "kg" and vice versa. (1 lbs to 0.453592 kg)', function () {
+    test('convertHandler should correctly convert L to gal.', function () {
+        const result2 = convertHandler.convert(1, 'L');
+        assert.equal(result2, '0.26417', `L turns to Gal`)
+    });
+    test('convertHandler should correctly convert lbs to kg.', function () {
         const result = convertHandler.convert(1, 'lbs');
         assert.equal(result, '0.45359', `Lbs turns to kg`)
+    });
+    test('convertHandler should correctly convert kg to lbs.', function () {
         const result2 = convertHandler.convert(1, 'kg');
         assert.equal(result2, '2.20462', `Kg turns to lbs`)
     });
-    test('You can convert "mi" to "km" and vice versa. (1 mi to 1.60934 km)', function () {
+    test('convertHandler should correctly convert mi to km.', function () {
         const result = convertHandler.convert(1, 'mi');
         assert.equal(result, '1.60934', `Mi turns to KM`)
+    });
+    test('convertHandler should correctly convert km to mi.', function () {
         const result2 = convertHandler.convert(1, 'km');
         assert.equal(result2, '0.62137', `Km turns to Mi`)
     });
